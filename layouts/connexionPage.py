@@ -1,21 +1,18 @@
 import tkinter as tk
 from functions.connexion import connexion
 
-def connexionPage():
-	# Creation de la fenetre
-	root = tk.Tk()
-	root.title("CNG Administration")
-	root.configure(background = 'white')
-	root.geometry("800x600")
-	root.resizable(False, False)
+def connexionPage(root):
+	
+	container = tk.Frame(root, bg="white")
+	container.pack(expand=True, fill=tk.BOTH)
 
-	header = tk.Frame(root)
+	header = tk.Frame(container)
 	header.pack()
 
 	title = tk.Label(header, text="CNG | Page de Connexion", font=("Lato", 18), bg='white', fg="black", pady=30)
 	title.pack()
 
-	formulaire = tk.LabelFrame(root, text="     🦾Formulaire de Connexion     ", font=("Lato", 14), bg='white',  fg="black")
+	formulaire = tk.LabelFrame(container, text="     🦾Formulaire de Connexion     ", font=("Lato", 14), bg='white',  fg="black")
 	formulaire.pack()
 
 	usernameFrame = tk.Frame(formulaire, padx=20, bg='white', pady=30) 
@@ -42,12 +39,9 @@ def connexionPage():
 	passwordEntry.grid(row=2, column=1, padx=30)
 
 
-	submitFrame = tk.Frame(root, bg='white')
+	submitFrame = tk.Frame(container, bg='white')
 	submitFrame.pack(pady=30)
 
-	connectButton = tk.Button(submitFrame, text="Se connecter ✔", command=lambda: connexion(usernameEntryText, passwordEntryText), padx=40, pady=5, bg='white', fg="#3DC35B", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
+	connectButton = tk.Button(submitFrame, text="Se connecter ✔", command=lambda: connexion(usernameEntryText, passwordEntryText, container, root), padx=40, pady=5, bg='white', fg="#3DC35B", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
 	quitButton = tk.Button(submitFrame, text="Quitter ✖", padx=40, pady=5, bg='white', fg="#C34D3D", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
 	# --- Submit ---
-
-
-	root.mainloop()

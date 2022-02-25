@@ -1,6 +1,7 @@
 from .database import databaseConnexion
+from layouts.indexPage import indexPage
 
-def connexion(usernameEntryText, passwordEntryText):
+def connexion(usernameEntryText, passwordEntryText, previousContainer, root):
 	mydb = databaseConnexion()
 	mycursor = mydb.cursor()
 	username = usernameEntryText.get()
@@ -10,10 +11,10 @@ def connexion(usernameEntryText, passwordEntryText):
 	mycursor.execute(sql, values)
 
 	admin = mycursor.fetchone()
+	mydb.close()
 	if admin == None:
 		print("Identifiants Incorrect !")
 	else:
 		print("Connexion réussie en tant que", admin)
-
-	mydb.close()
-
+		previousContainer.pack_forget()
+		indexPage(root)
