@@ -3,11 +3,10 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 
 from .menu import Menu
-from .addPage import addPage
 from functions.getLutteurs import getLutteurs
 
 
-def indexPage(root):
+def indexPage(root, switcher):
 	menu = Menu(root)
 
 	container = tk.Frame(root, bg="white")
@@ -23,7 +22,7 @@ def indexPage(root):
 
 	searchButton = tk.Button(searchFrame, text="Rechercher", padx=40, bg='#3D83C3', fg="white", font=("Lato", 10)).grid(row=0, column=1, padx=20)
 
-	addButton = tk.Button(container, text="Ajouter", command= lambda: addPage(container, root), padx=40, bg="#3DC35B", fg="white", font=("Lato", 10)).pack(pady=20)
+	addButton = tk.Button(container, text="Ajouter", command=lambda: switcher(root, switcher, container, 'addPage'), padx=40, bg="#3DC35B", fg="white", font=("Lato", 10)).pack(pady=20)
 
 	lutteurs = getLutteurs()
 	print(lutteurs)

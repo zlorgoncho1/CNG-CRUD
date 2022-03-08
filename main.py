@@ -1,7 +1,7 @@
-from layouts.root import root
-from layouts.indexPage import indexPage
+from layouts.root import root, switcher
+from layouts.connexionPage import connexionPage
 
 if __name__ == '__main__':
 	root = root()
-	indexPage(root)
+	connexionPage(root, switcher)
 	root.mainloop()

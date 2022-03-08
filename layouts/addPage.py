@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from tkcalendar import Calendar
 import datetime
+
 from functions.addLutteur import addLutteur
 
 def calendarToggle(dateButtonText, calendar, dateIstext):
@@ -19,9 +20,7 @@ def calendarToggle(dateButtonText, calendar, dateIstext):
 
 	calendarStatus = not calendarStatus
 
-def addPage(container, root):
-	container.pack_forget()
-
+def addPage(root, switcher):
 	container = tk.Frame(root, bg="white")
 	container.pack(expand=True, fill=tk.BOTH)
 
@@ -77,7 +76,7 @@ def addPage(container, root):
 	submitFrame = tk.Frame(container, bg='white')
 	submitFrame.pack(pady=30)
 
-	validerButton = tk.Button(submitFrame, text="Valider", command = lambda: addLutteur(nomEntry.get(), prenomEntry.get(), pseudoEntry.get(), ecurieEntry.get(), date, nbr_combatEntry.get(), nbr_victoireEntry.get(), nbr_nulEntry.get()), padx=40, pady=5, bg='#4EB052', fg="white", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
+	validerButton = tk.Button(submitFrame, text="Valider", command = lambda: addLutteur(nomEntry.get(), prenomEntry.get(), pseudoEntry.get(), ecurieEntry.get(), date, nbr_combatEntry.get(), nbr_victoireEntry.get(), nbr_nulEntry.get(), container, root, switcher), padx=40, pady=5, bg='#4EB052', fg="white", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
 	annulerButton = tk.Button(submitFrame, text="Annuler", padx=40, pady=5, bg='#DF453C', fg="white", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
 	# --- Submit ---
 

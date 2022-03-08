@@ -1,7 +1,7 @@
 import tkinter as tk
 from functions.connexion import connexion
 
-def connexionPage(root):
+def connexionPage(root, switcher):
 	
 	container = tk.Frame(root, bg="white")
 	container.pack(expand=True, fill=tk.BOTH)
@@ -42,6 +42,6 @@ def connexionPage(root):
 	submitFrame = tk.Frame(container, bg='white')
 	submitFrame.pack(pady=30)
 
-	connectButton = tk.Button(submitFrame, text="Se connecter ✔", command=lambda: connexion(usernameEntryText, passwordEntryText, container, root), padx=40, pady=5, bg='white', fg="#3DC35B", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
+	connectButton = tk.Button(submitFrame, text="Se connecter ✔", command=lambda: connexion(usernameEntryText, passwordEntryText, container, root, switcher), padx=40, pady=5, bg='white', fg="#3DC35B", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
 	quitButton = tk.Button(submitFrame, text="Quitter ✖", padx=40, pady=5, bg='white', fg="#C34D3D", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
 	# --- Submit ---
