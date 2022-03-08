@@ -3,7 +3,8 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 
 from .menu import Menu
-from functions.getUsers import getUsers
+from .addPage import addPage
+from functions.getLutteurs import getLutteurs
 
 
 def indexPage(root):
@@ -22,9 +23,9 @@ def indexPage(root):
 
 	searchButton = tk.Button(searchFrame, text="Rechercher", padx=40, bg='#3D83C3', fg="white", font=("Lato", 10)).grid(row=0, column=1, padx=20)
 
-	addButton = tk.Button(container, text="Ajouter", padx=40, bg="#3DC35B", fg="white", font=("Lato", 10)).pack(pady=20)
+	addButton = tk.Button(container, text="Ajouter", command= lambda: addPage(container, root), padx=40, bg="#3DC35B", fg="white", font=("Lato", 10)).pack(pady=20)
 
-	lutteurs = getUsers()
+	lutteurs = getLutteurs()
 	print(lutteurs)
 
 	if lutteurs == []:
@@ -38,21 +39,21 @@ def indexPage(root):
 		arrayFrame = tk.Frame(container, width=300)
 		arrayFrame.pack()
 
-		columns = ('pseudo', 'ecurie', 'age', 'nbr_combat')
+		columns = ('pseudo', 'ecurie', 'ddn', 'nbr_combat')
 		height = len(lutteurs)
 		if height < 8:
 			dataArray = ttk.Treeview(arrayFrame, columns=columns, show='headings', height=height)
 		else:
 			dataArray = ttk.Treeview(arrayFrame, columns=columns, show='headings', height=8)
 
-		dataArray.column('pseudo', anchor=tk.CENTER, width=200)
+		dataArray.column('pseudo', anchor=tk.CENTER, width=150)
 		dataArray.column('ecurie', anchor=tk.CENTER, width=150)
-		dataArray.column('age', anchor=tk.CENTER, width=50)
+		dataArray.column('ddn', anchor=tk.CENTER, width=150)
 		dataArray.column('nbr_combat', anchor=tk.CENTER, width=150)
 
 		dataArray.heading('pseudo', text='Nom de lutteur', anchor=tk.CENTER)
 		dataArray.heading('ecurie', text='Ecurie', anchor=tk.CENTER)
-		dataArray.heading('age', text='Age', anchor=tk.CENTER)
+		dataArray.heading('ddn', text='Age', anchor=tk.CENTER)
 		dataArray.heading('nbr_combat', text='Nombre de combat', anchor=tk.CENTER)
 
 		for lutteur in lutteurs:

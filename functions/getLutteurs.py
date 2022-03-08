@@ -1,14 +1,12 @@
 from .database import databaseConnexion
 
-def getUsers():
+def getLutteurs():
 	mydb = databaseConnexion()
 	mycursor = mydb.cursor()
-	sql = "SELECT pseudo, ecurie, age, nbr_combat FROM lutteur"
+	sql = "SELECT pseudo, ecurie, ddn, nbr_combat FROM lutteur"
 	mycursor.execute(sql)
 
 	lutteurs = mycursor.fetchall()
 	mydb.close()
-
-
 
 	return lutteurs
