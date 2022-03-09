@@ -3,7 +3,8 @@ from tkinter import messagebox
 from tkcalendar import Calendar
 import datetime
 
-from functions.addLutteur import addLutteur
+from functions.setLutteur import setLutteur
+from functions.deleteLutteur import deleteLutteur
 
 def calendarToggle(dateButtonText, calendar, dateIstext):
 	global calendarStatus
@@ -20,31 +21,30 @@ def calendarToggle(dateButtonText, calendar, dateIstext):
 
 	calendarStatus = not calendarStatus
 
-def addPage(root, switcher):
+def readPage(root, switcher, **kwargs):
 
 	def clean():
 		nomEntry.delete(0, 'end')
 		prenomEntry.delete(0, 'end')
 		ecurieEntry.delete(0, 'end')
-		pseudoEntry.delete(0, 'end')
 		nbr_combatEntry.delete(0, 'end')
 		nbr_victoireEntry.delete(0, 'end')
 		nbr_nulEntry.delete(0, 'end')
 		dateIstext.set("")
 
-	def add(previousContainer, root, switcher):
+	def annuler(root, switcher, previousContainer):
+		clean()
+		switcher(root, switcher, previousContainer, 'indexPage')
+
+	def set(root, switcher, previousContainer):
 		nom = nomEntry.get()
 		prenom = prenomEntry.get()
-		pseudo = pseudoEntry.get()
+		pseudo = kwargs['pseudo']
 		ecurie = ecurieEntry.get()
 		nbr_combat = nbr_combatEntry.get()
 		nbr_victoire = nbr_victoireEntry.get()
 		nbr_nul = nbr_nulEntry.get()
-		addLutteur(nom, prenom, pseudo, ecurie, date, nbr_combat, nbr_victoire, nbr_nul, previousContainer, root, switcher, clean)
-
-	def annuler(root, switcher, previousContainer):
-		clean()
-		switcher(root, switcher, previousContainer, 'indexPage')
+		setLutteur(nom, prenom, pseudo, ecurie, date, nbr_combat, nbr_victoire, nbr_nul, previousContainer, root, switcher, clean)
 
 	container = tk.Frame(root, bg="white")
 	container.pack(expand=True, fill=tk.BOTH)
@@ -53,7 +53,7 @@ def addPage(root, switcher):
 	header = tk.Frame(container)
 	header.pack()
 
-	title = tk.Label(header, text="Ajouter Lutteur", font=("Roboto", 18), bg='white', fg="black", pady=5)
+	title = tk.Label(header, text="Modifier Lutteur", font=("Roboto", 18), bg='white', fg="black", pady=5)
 	title.pack()
 	# --- Header ---
 
@@ -62,10 +62,14 @@ def addPage(root, switcher):
 	form.pack()
 
 	# --- Inputs ---
-	inputs = [("nom", "Nom"),("prenom", "Prenom"),("pseudo", "Pseudo"),("ecurie", "Ecurie"),("ddn", "Date de Naissance"),("nbr_combat", "Nbr Combat"),("nbr_victoire", "Nbr Victoire"),("nbr_nul", "Nbr Nul")] # Inputs
+	inputs = [("nom", "Nom"),("prenom", "Prenom"),("ecurie", "Ecurie"),("ddn", "Date de Naissance"),("nbr_combat", "Nbr Combat"),("nbr_victoire", "Nbr Victoire"),("nbr_nul", "Nbr Nul")] # Inputs
 
+	pseudoFrame = tk.Frame(form, padx=20, bg='white', pady=15) # Frame for inputs(Label and Entry)
+	pseudoFrame.pack()
+	pseudoLabel = tk.Label(pseudoFrame, text="Pseudo: ", font=("Roboto", 12), bg='white').grid(row=0, column=0, padx=30)
+	pseudoValue = tk.Label(pseudoFrame, text=kwargs['pseudo'], font=("Roboto", 12), bg='white').grid(row=0, column=1, padx=30)
 	global row
-	row =  0
+	row =  1
 	# I don't like repetition
 	for inputt in inputs:
 		globals()[f"{inputt[0]}Frame"] = tk.Frame(form, padx=20, bg='white', pady=15) # Frame for inputs(Label and Entry)
@@ -75,7 +79,7 @@ def addPage(root, switcher):
 
 		if inputt == ("ddn", "Date de Naissance"):
 			dateIstext = tk.StringVar()
-			dateIstext.set("")
+			dateIstext.set(kwargs[f"{inputt[0]}"])
 			dateIs = tk.Label(globals()[f"{inputt[0]}Frame"], textvariable=dateIstext, bg='white').grid(row=row, column=1)
 
 			dateButtonText = tk.StringVar()
@@ -84,14 +88,15 @@ def addPage(root, switcher):
 
 			global calendarStatus
 			global date
-			date = None
+			date = kwargs[f"{inputt[0]}"]
 			calendarStatus = False
 			calendar = Calendar(globals()[f"{inputt[0]}Frame"], selectmode = 'day', year = 2021, month = 12, day = 30)
 
 		else:
 			globals()[f"{inputt[0]}EntryText"] = tk.StringVar()
 			globals()[f"{inputt[0]}Entry"] = tk.Entry(globals()[f"{inputt[0]}Frame"], textvariable=f"{inputt[0]}EntryText", width=20)
-			globals()[f"{inputt[0]}EntryText"].set("")
+			globals()[f"{inputt[0]}EntryText"].set(kwargs[f"{inputt[0]}"])
+			globals()[f"{inputt[0]}Entry"].insert(tk.END, kwargs[f"{inputt[0]}"])
 			globals()[f"{inputt[0]}Entry"].grid(row=row, column=1, padx=30)
 
 		row += 1
@@ -101,7 +106,9 @@ def addPage(root, switcher):
 	submitFrame = tk.Frame(container, bg='white')
 	submitFrame.pack(pady=30)
 
-	validerButton = tk.Button(submitFrame, text="Valider", command = lambda: add(container, root, switcher), padx=40, pady=5, bg='#4EB052', fg="white", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
-	annulerButton = tk.Button(submitFrame, text="Annuler", command= lambda: annuler(root, switcher, container), padx=40, pady=5, bg='#DF453C', fg="white", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
+	modifierButton = tk.Button(submitFrame, text="Modifer", command = lambda: set(root, switcher, container), padx=40, pady=5, bg='#EAC609', fg="white", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
+	annulerButton = tk.Button(submitFrame, text="Annuler", command= lambda: annuler(root, switcher, container), padx=40, pady=5, bg='black', fg="white", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
+	supprimerButton = tk.Button(submitFrame, text="Supprimer", command= lambda: deleteLutteur(kwargs['pseudo'], root, switcher, container, clean), padx=40, pady=5, bg='#DF453C', fg="white", font=("Roboto", 12)).grid(row=0, column=2, padx=40)
+
 	# --- Submit ---
 

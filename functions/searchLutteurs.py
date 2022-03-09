@@ -29,5 +29,6 @@ def searchLutteurs(**kwargs):
 		sql = "SELECT pseudo, ecurie, ddn, nbr_combat FROM lutteur"
 		mycursor.execute(sql)
 		lutteurs = mycursor.fetchall()
+		mydb.close()
 		message = "Aucun lutteur ne figure dans la base de donnée.\nCommencer alors par en ajouter un !"
 		return [lutteurs, message]

@@ -4,9 +4,15 @@ from tkinter.messagebox import showinfo
 
 from .menu import Menu
 from functions.searchLutteurs import searchLutteurs
+from functions.readLutteur import readLutteur
 
 
 def indexPage(root, switcher, **kwargs):
+
+	def OnDoubleClick(event):
+	    index = dataArray.item(dataArray.selection()[0], 'values')[0]
+	    readLutteur(index, root, switcher, container, 'readPage')
+
 	menu = Menu(root)
 
 	container = tk.Frame(root, bg="white")
@@ -61,6 +67,8 @@ def indexPage(root, switcher, **kwargs):
 
 		for lutteur in lutteurs:
 			dataArray.insert('', tk.END, values=lutteur)
+
+		dataArray.bind("<Double-1>", OnDoubleClick)
 
 		dataArray.grid(row=0, column=0, sticky='nsew')
 
