@@ -3,10 +3,10 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 
 from .menu import Menu
-from functions.getLutteurs import getLutteurs
+from functions.searchLutteurs import searchLutteurs
 
 
-def indexPage(root, switcher):
+def indexPage(root, switcher, **kwargs):
 	menu = Menu(root)
 
 	container = tk.Frame(root, bg="white")
@@ -20,15 +20,19 @@ def indexPage(root, switcher):
 	searchEntryText.set("")
 	searchEntry.grid(row=0, column=0, padx=20)
 
-	searchButton = tk.Button(searchFrame, text="Rechercher", padx=40, bg='#3D83C3', fg="white", font=("Lato", 10)).grid(row=0, column=1, padx=20)
+	searchButton = tk.Button(searchFrame, text="Rechercher", command=lambda: searchLutteurs(search=searchEntry.get(), root=root, switcher=switcher, previousContainer=container, pageName='indexPage'), padx=40, bg='#3D83C3', fg="white", font=("Lato", 10)).grid(row=0, column=1, padx=20)
 
 	addButton = tk.Button(container, text="Ajouter", command=lambda: switcher(root, switcher, container, 'addPage'), padx=40, bg="#3DC35B", fg="white", font=("Lato", 10)).pack(pady=20)
 
-	lutteurs = getLutteurs()
-	print(lutteurs)
+	if kwargs == {}:
+		lutteurs = searchLutteurs()[0]
+		message = searchLutteurs()[1]
+	else:
+		lutteurs = kwargs['lutteurs']
+		message = kwargs['message']
 
 	if lutteurs == []:
-		textLabel = tk.Label(container, text="Aucun lutteur ne figure dans la base de donnée.\nCommencer alors par en ajouter un !", font=("Lato", 16), bg='white')
+		textLabel = tk.Label(container, text=message, font=("Lato", 16), bg='white')
 		textLabel.pack()
 
 	else:
@@ -52,7 +56,7 @@ def indexPage(root, switcher):
 
 		dataArray.heading('pseudo', text='Nom de lutteur', anchor=tk.CENTER)
 		dataArray.heading('ecurie', text='Ecurie', anchor=tk.CENTER)
-		dataArray.heading('ddn', text='Age', anchor=tk.CENTER)
+		dataArray.heading('ddn', text='Date de Naissance', anchor=tk.CENTER)
 		dataArray.heading('nbr_combat', text='Nombre de combat', anchor=tk.CENTER)
 
 		for lutteur in lutteurs:

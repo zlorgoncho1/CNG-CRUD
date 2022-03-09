@@ -4,9 +4,6 @@ from layouts.indexPage import indexPage
 from layouts.connexionPage import connexionPage
 from layouts.addPage import addPage
 
-
-
-
 def root():
 	root = tk.Tk()
 	root.title("CNG Administration")
@@ -16,7 +13,7 @@ def root():
 
 	return root
 
-def switcher(root, switcher, previous_container, page_name):
+def switcher(root, switcher, previousContainer, pageName, **kwargs):
 	page = {"connexionPage": connexionPage, "indexPage": indexPage, "addPage": addPage}
-	previous_container.pack_forget()
-	page[page_name](root, switcher)
+	previousContainer.pack_forget()
+	page[pageName](root, switcher, **kwargs)

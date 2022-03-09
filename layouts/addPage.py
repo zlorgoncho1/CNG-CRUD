@@ -77,6 +77,6 @@ def addPage(root, switcher):
 	submitFrame.pack(pady=30)
 
 	validerButton = tk.Button(submitFrame, text="Valider", command = lambda: addLutteur(nomEntry.get(), prenomEntry.get(), pseudoEntry.get(), ecurieEntry.get(), date, nbr_combatEntry.get(), nbr_victoireEntry.get(), nbr_nulEntry.get(), container, root, switcher), padx=40, pady=5, bg='#4EB052', fg="white", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
-	annulerButton = tk.Button(submitFrame, text="Annuler", padx=40, pady=5, bg='#DF453C', fg="white", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
+	annulerButton = tk.Button(submitFrame, text="Annuler", command= lambda: switcher(root, switcher, container, 'indexPage'), padx=40, pady=5, bg='#DF453C', fg="white", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
 	# --- Submit ---
 

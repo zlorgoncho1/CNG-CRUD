@@ -3,7 +3,6 @@ import mysql.connector
 def databaseConnexion():
   try:
     mydb = mysql.connector.connect(host="localhost", user="root", password="", database="cngdatabase")
-    print("Connecté à la base de donnée CNG Database !")
   except:
     # Connexion to MySQL
     mydb = mysql.connector.connect(host="localhost", user="root", password="")
