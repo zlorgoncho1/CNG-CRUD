@@ -1,4 +1,5 @@
 from .database import databaseConnexion
+from tkinter import messagebox
 
 def connexion(usernameEntryText, passwordEntryText, previousContainer, root, switcher):
 	mydb = databaseConnexion()
@@ -12,7 +13,7 @@ def connexion(usernameEntryText, passwordEntryText, previousContainer, root, swi
 	admin = mycursor.fetchone()
 	mydb.close()
 	if admin == None:
-		print("Identifiants Incorrect !")
+		messagebox.showinfo(message="Identifiants Incorrects")
 	else:
 		print("Connexion réussie en tant que", admin)
 		switcher(root, switcher, previousContainer, 'indexPage')

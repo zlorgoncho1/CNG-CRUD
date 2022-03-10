@@ -21,12 +21,14 @@ def indexPage(root, switcher, **kwargs):
 	searchFrame = tk.LabelFrame(container, text="    🦍Rechercher un lutteur    ", font=("Lato", 12), bg='white',  fg="black", pady=20)
 	searchFrame.pack(pady=20)
 
+	cancelButton = tk.Button(searchFrame, text="X", command=lambda: searchLutteurs(search=searchEntry.get(), root=root, switcher=switcher, previousContainer=container, pageName='indexPage'), padx=10, bg='#3D83C3', fg="white", font=("Lato", 10)).grid(row=0, column=0, padx=20)
+
 	searchEntryText = tk.StringVar()
 	searchEntry = tk.Entry(searchFrame, textvariable=searchEntryText, width=40)
 	searchEntryText.set("")
-	searchEntry.grid(row=0, column=0, padx=20)
+	searchEntry.grid(row=0, column=1, padx=20)
 
-	searchButton = tk.Button(searchFrame, text="Rechercher", command=lambda: searchLutteurs(search=searchEntry.get(), root=root, switcher=switcher, previousContainer=container, pageName='indexPage'), padx=40, bg='#3D83C3', fg="white", font=("Lato", 10)).grid(row=0, column=1, padx=20)
+	searchButton = tk.Button(searchFrame, text="Rechercher", command=lambda: searchLutteurs(search=searchEntry.get(), root=root, switcher=switcher, previousContainer=container, pageName='indexPage'), padx=40, bg='#3D83C3', fg="white", font=("Lato", 10)).grid(row=0, column=2, padx=20)
 
 	addButton = tk.Button(container, text="Ajouter", command=lambda: switcher(root, switcher, container, 'addPage'), padx=40, bg="#3DC35B", fg="white", font=("Lato", 10)).pack(pady=20)
 

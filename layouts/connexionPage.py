@@ -34,7 +34,7 @@ def connexionPage(root, switcher):
 	passwordLabel.grid(row=2, column=0, padx=30)
 
 	passwordEntryText = tk.StringVar()
-	passwordEntry = tk.Entry(passwordFrame, textvariable=passwordEntryText)
+	passwordEntry = tk.Entry(passwordFrame, textvariable=passwordEntryText, show="*")
 	passwordEntryText.set("")
 	passwordEntry.grid(row=2, column=1, padx=30)
 
