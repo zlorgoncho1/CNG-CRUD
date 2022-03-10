@@ -1,41 +1,21 @@
-import mysql.connector
+import sqlite3
 
 def databaseConnexion():
-  try:
-    mydb = mysql.connector.connect(host="localhost", user="root", password="", database="cngdatabase")
-  except:
-    # Connexion to MySQL
-    mydb = mysql.connector.connect(host="localhost", user="root", password="")
-    mycursor = mydb.cursor()
-    print("Connecté au server Mysql !")
+  mydb = sqlite3.connect('../cngdatabase.db')
+  mycursor = mydb.cursor()
+  sql = "CREATE TABLE IF NOT EXISTS administration (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, UNIQUE(username))"
+  mycursor.execute(sql)
 
-    # Create Database if not exists
-    mycursor.execute("CREATE DATABASE cngdatabase")
-    print("Base de donnée CNG Database créée")
-    mydb.close()
-    print("Connexion réinitialisée")
+  sql = "CREATE TABLE IF NOT EXISTS lutteur (pseudo TEXT NOT NULL PRIMARY KEY, ecurie TEXT NOT NULL, nom TEXT NOT NULL,  prenom TEXT NOT NULL, ddn TEXT NOT NULL, nbr_combat INTEGER NOT NULL, nbr_victoire INTEGER NOT NULL, nbr_nul INTEGER NOT NULL)"
+  mycursor.execute(sql)
 
-    # New Connexion
-    mydb = mysql.connector.connect(host="localhost",user="root",password="",database="cngdatabase")
-    mycursor = mydb.cursor()
-    print("Nouvelle Connexion")
+  mycursor.execute("SELECT * FROM administration WHERE username=:username", {"username":"root"})
+  user = mycursor.fetchone()
 
-    # Create Administration
-    sql = "CREATE TABLE administration (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(70) NOT NULL, password VARCHAR(70) NOT NULL)"
-    mycursor.execute(sql)
-    print("Table administrateur créée !")
-
-     # Create Lutteur
-    sql = "CREATE TABLE lutteur (pseudo VARCHAR(40) NOT NULL PRIMARY KEY, ecurie VARCHAR(40) NOT NULL, nom VARCHAR(40) NOT NULL,  prenom VARCHAR(40) NOT NULL, ddn DATE NOT NULL, nbr_combat INT NOT NULL, nbr_victoire INT NOT NULL, nbr_nul INT NOT NULL)"
-    mycursor.execute(sql)
-    print("Table Lutteur créée !")
-
-    # Insert Defaul admin
-    sql = "INSERT INTO administration (username, password) VALUES (%s, %s)"
-    values = ("root", "root")
+  if user == None:
+    sql = "INSERT INTO administration (username, password) VALUES (:username, :password)"
+    values = {"username": "root", "password":"root"}
     mycursor.execute(sql, values)
-    mydb.commit()
-    print("Utilisateur Par défaut Root insérée!")
-    
+    mydb.commit()    
   
   return mydb

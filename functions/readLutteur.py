@@ -5,8 +5,8 @@ from datetime import datetime
 def readLutteur(index, root, switcher, previousContainer, pagename):
 	mydb = databaseConnexion()
 	mycursor = mydb.cursor()
-	sql = "SELECT * FROM Lutteur WHERE pseudo=%s"
-	val = (index,)
+	sql = "SELECT * FROM Lutteur WHERE pseudo=:pseudo"
+	val = {"pseudo":index}
 	mycursor.execute(sql, val)
 	lutteur = mycursor.fetchone()
 	mydb.close()

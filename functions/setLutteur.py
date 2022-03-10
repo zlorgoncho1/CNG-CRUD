@@ -24,8 +24,8 @@ def setLutteur(nom, prenom, pseudo, ecurie, date, nbr_combat, nbr_victoire, nbr_
 			messagebox.showinfo(message="Le nombre de combat ne peut pas être inférieur au nombre de victoire cumulé au nombre de nul")
 
 		else:
-			sql = "UPDATE lutteur SET nom=%s, prenom=%s, ecurie=%s, ddn=%s, nbr_combat=%s, nbr_victoire=%s, nbr_nul=%s WHERE pseudo=%s"
-			val = (nom.upper(), prenom.upper(), ecurie.upper(), ddn.upper(), nbr_combat.upper(), nbr_victoire.upper(), nbr_nul, pseudo.upper())
+			sql = "UPDATE lutteur SET nom=:nom, prenom=:prenom, ecurie=:ecurie, ddn=:ddn, nbr_combat=:nbr_combat, nbr_victoire=:nbr_victoire, nbr_nul=:nbr_nul WHERE pseudo=:pseudo"
+			val = {"pseudo":pseudo.upper(), "ecurie":ecurie.upper(),  "nom":nom.upper(), "prenom":prenom.upper(), "ddn":ddn.upper(), "nbr_combat":nbr_combat.upper(), "nbr_victoire":nbr_victoire.upper(), "nbr_nul":nbr_nul.upper()}
 			mycursor.execute(sql, val)
 			mydb.commit()
 

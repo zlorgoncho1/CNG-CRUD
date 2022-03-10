@@ -7,8 +7,8 @@ def deleteLutteur(pseudo, root, switcher, previousContainer, clean):
 	if res == 'yes':
 		mydb = databaseConnexion()
 		mycursor = mydb.cursor()
-		sql = "DELETE FROM lutteur WHERE pseudo=%s"
-		val = (pseudo,)
+		sql = "DELETE FROM lutteur WHERE pseudo=:pseudo"
+		val = {"pseudo":pseudo}
 		mycursor.execute(sql, val)
 		mydb.commit()
 

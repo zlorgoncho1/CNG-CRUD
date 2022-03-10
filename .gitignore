@@ -1,0 +1,9 @@
+env/
+dist/
+build/
+__pycache__/
+functions/__pycache__/
+layouts/__pycache__/
+setup/cngcrud/
+setup/SetupScript/
+setup/SetupTXT/

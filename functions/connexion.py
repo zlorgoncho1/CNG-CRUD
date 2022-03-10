@@ -6,9 +6,8 @@ def connexion(usernameEntryText, passwordEntryText, previousContainer, root, swi
 	mycursor = mydb.cursor()
 	username = usernameEntryText.get()
 	password = passwordEntryText.get()
-	sql = "SELECT * FROM administration WHERE username = %s AND password = %s"
-	values = (username, password)
-	mycursor.execute(sql, values)
+	sql = ("SELECT * FROM administration WHERE username =:username AND password =:password", {"username":username, "password":password})
+	mycursor.execute("SELECT * FROM administration WHERE username =:username AND password =:password", {"username":username, "password":password})
 
 	admin = mycursor.fetchone()
 	mydb.close()
