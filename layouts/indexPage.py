@@ -18,7 +18,7 @@ def indexPage(root, switcher, **kwargs):
 	container = tk.Frame(root, bg="white")
 	container.pack(expand=True, fill=tk.BOTH)
 
-	searchFrame = tk.LabelFrame(container, text="    Rechercher un lutteur    ", font=("Lato", 12), bg='white',  fg="black", pady=20)
+	searchFrame = tk.LabelFrame(container, text="    🦍Rechercher un lutteur    ", font=("Lato", 12), bg='white',  fg="black", pady=20)
 	searchFrame.pack(pady=20)
 
 	searchEntryText = tk.StringVar()
