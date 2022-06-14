@@ -8,7 +8,7 @@ def Menu(root):
 		root.configure(background = 'white')
 		root.resizable(False, False)
 
-		aide = tk.Label(root, text="Ceci est juste un projet éducatif à rendre.\nHeuu pour la \"notice\" d'utilisation de ce petit logiciel:\nVAS-Y A L'INTUITION ! 🤣🤣\n T'as vraiment cru que j'allais rédiger un truc pour l'aide ?\nJuste que pour la barre de recherche, la recherche se fait par nom, prenom, pseudo, écurie").pack()
+		aide = tk.Label(root, text="Ceci est juste un projet éducatif à rendre. Juste que pour la barre de recherche, la recherche se fait par nom, prenom, pseudo, écurie").pack()
 
 
 	myMenu = tk.Menu(root)

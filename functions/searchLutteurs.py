@@ -14,7 +14,7 @@ def searchLutteurs(**kwargs):
 				message = "Aucun lutteur ne figure dans la base de donnée.\nCommencer alors par en ajouter un !"
 		else:
 			sql = "SELECT pseudo, ecurie, ddn, nbr_combat FROM lutteur WHERE pseudo=%s OR ecurie=%s OR nom=%s OR prenom=%s"
-			val = (search, search, search, search)
+			val = (search.upper(), search.upper(), search.upper(), search.upper())
 			mycursor.execute(sql, val)
 			lutteurs = mycursor.fetchall()
 			if lutteurs == []:
