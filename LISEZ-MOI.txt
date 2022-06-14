@@ -1,0 +1,15 @@
+Assurez-vous qu'un server MySQL est actif en local et est disponible sur le 3306 (port par défaut)[localhost:3306].
+
+Pour lancer le programme, il faut créer et activer un environnement virtuel. Puis à la racine du projet
+taper les commandes suivantes:
+
+	1. Installer les requirements: 	# pip install -r requirements.txt
+	2. Lancer le projet: 		# python main.py
+
+NB: Par défaut, une base de donnée cngdatabase est créée de même qu'un utilisateur avec le couple ('root', 'root')
+pour la page de connexion.
+
+
+Remarque: Le projet est aussi disponible sur github "https://github.com/zlorgoncho1/CNG-CRUD".
+Une branche exe y existe et dans cette branche on peut trouver un point executable du projet ( pas encore mis à jour 
+mais qui marche quand même)

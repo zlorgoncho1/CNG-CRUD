@@ -34,7 +34,7 @@ def connexionPage(root, switcher):
 	passwordLabel.grid(row=2, column=0, padx=30)
 
 	passwordEntryText = tk.StringVar()
-	passwordEntry = tk.Entry(passwordFrame, textvariable=passwordEntryText, show="*")
+	passwordEntry = tk.Entry(passwordFrame, textvariable=passwordEntryText, show="#")
 	passwordEntryText.set("")
 	passwordEntry.grid(row=2, column=1, padx=30)
 
@@ -43,5 +43,5 @@ def connexionPage(root, switcher):
 	submitFrame.pack(pady=30)
 
 	connectButton = tk.Button(submitFrame, text="Se connecter ✔", command=lambda: connexion(usernameEntryText, passwordEntryText, container, root, switcher), padx=40, pady=5, bg='white', fg="#3DC35B", font=("Roboto", 12)).grid(row=0, column=0, padx=40)
-	quitButton = tk.Button(submitFrame, text="Quitter ✖", padx=40, pady=5, bg='white', fg="#C34D3D", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
+	quitButton = tk.Button(submitFrame, text="Quitter ✖", command=root.quit, padx=40, pady=5, bg='white', fg="#C34D3D", font=("Roboto", 12)).grid(row=0, column=1, padx=40)
 	# --- Submit ---
